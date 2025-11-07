@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="Savory_Spot.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+        <title>Savory Spot</title>
+    </head>
+    <body>
+        <!--Navbar Starts-->
+        <div class="background-overlay"></div>
+        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+            <div class="nav-content">
+                <div class="left-content">
+                    <ul>               
+                        <li><i class="bi bi-fork-knife" style="color: rgb(255, 204, 0); font-size: 2.5rem;"></i></li>
+                        <li><h4 style= "color: rgb(255, 204, 0);">Savory Spot</h4></li>                    
+                    </ul>
+                </div>               
+                <div class="right-content">
+                    <ul>               
+                        <li><a href="#home">HOME</a></li>
+                        <li><a href="#menu">MENU</a></li>
+                        <li><a href="#services">SERVICES</a></li>                              
+                        <li><a href="#reviews">REVIEWS</a></li>
+                        <li><a href="#book" class="book-link">BOOK A TABLE</button></a></li>
+                        <li><a href="#login"><button type="button" class="btn btn-warning" id = "login">LOG IN</button></a></li>
+                        <li><a href="#register"><button type="button" class="btn btn-warning" id = 'register'>REGISTER</button></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--Navbar Ends-->
+        <!--Welcome Page Starts-->
+
+        <div class="grid-container">
+            <div class="item1"> <video class="welcome-video"src="welcomevideo.mp4" autoplay muted loop width="400" height="400"></video></div>
+            <div class="item2"><h1 id="home">WELCOME TO SAVORY SPOT!</h1>
+                <p class="home-description">
+                    At Savory Spot, we bring people together over hearty meals and unforgettable flavors. 
+                    From sizzling burgers to handcrafted pastas and wood-fired pizzas, every dish is made with love and fresh ingredients. 
+                    Whether you're dining in, ordering out, or planning a cozy evening with friends, we are here to serve up taste, warmth, and satisfaction in every bite.
+                </p>
+            </div>
+        </div>
+        <br>
+        <!--Welcome Page Ends-->
+        <!--Menu Starts-->    
+        <div class="menu-items">
+            <h2 id="menu">Our Menu</h2>
+            <hr>
+            <h3>Burger Bliss</h3>
+            <div class="burger">
+                <div class="food-card">
+                    <div class="container">
+                        <div class="food-img-bg">
+                            <img src="chickenburger.jpg">               
+                            <div class="promo-badge">Buy 1<br>Get 1<br>Free</div>
+                        </div>
+                        <div class="menu-title">Crispy Chicken Burger</div>
+                        <div class="menu-price">
+                            <p>MUR 150</p>
+                        </div>
+                    </div> 
+                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                </div>
+                <div class="food-card">
+                    <div class="container">
+                        <div class="food-img-bg">
+                            <img src="lambburger.jpeg">
+                        </div>
+                        <div class="menu-title">Lamb Burger</div>
+                        <div class="menu-price">
+                            <p>MUR 200</p>
+                        </div>
+                    </div> 
+                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                </div>
+                <div class="food-card">
+                    <div class="container">
+                        <div class="food-img-bg">
+                            <img src="vegburger.jpeg">
+                        </div>
+                        <div class="menu-title">Veg Burger</div>
+                        <div class="menu-price">
+                            <p>MUR 100</p>
+                        </div>
+                    </div> 
+                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                </div>
+            </div>
+            <br>
+            <h3>Pizza Corner</h3>
+            <div class="pizza">
+                <div class="food-card">
+                    <div class="container">
+                        <div class="food-img-bg">
+                            <img src="Chickenpizza.jpg">
+                        </div>
+                        <div class="menu-title">Creamy Chicken Pizza</div>
+                        <div class="menu-price">
+                            <p>MUR 250</p>
+                        </div>
+                    </div> 
+                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                </div>
+                <div class="food-card">
+                    <div class="container">
+                        <div class="food-img-bg">
+                            <img src="lambpizza.jpg">
+                            <div class="promo-badge">Buy 1<br>Get 1<br>Free</div>
+                        </div>
+                        <div class="menu-title">Lamb Pizza</div>
+                        <div class="menu-price">
+                            <p>MUR 300</p>
+                        </div>
+                    </div> 
+                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                </div>
+                <div class="food-card">
+                    <div class="container">
+                        <div class="food-img-bg">
+                            <img src="vegpizza.jpeg">
+                        </div>
+                        <div class="menu-title">Veg Pizza</div>
+                        <div class="menu-price">
+                            <p>MUR 150</p>
+                        </div>
+                    </div> 
+                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                </div>
+            </div>
+            <br>
+            <h3>Cozy Pasta</h3>
+            <div class="pasta">
+                <div class="food-card">
+                    <div class="container">
+                        <div class="food-img-bg">
+                            <img src="chickenpasta.jpg">
+                        </div>
+                        <div class="menu-title">Chicken Pasta</div>
+                        <div class="menu-price">
+                            <p>MUR 350</p>
+                        </div>
+                    </div> 
+                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                </div>
+                <div class="food-card">
+                    <div class="container">
+                        <div class="food-img-bg">
+                            <img src="lambpasta.jpg">
+                        </div>
+                    <div class="menu-title">Lamb Pasta</div>
+                    <div class="menu-price">
+                        <p>MUR 400</p>
+                    </div>
+                    </div> 
+                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                </div>
+                <div class="food-card">
+                <div class="container">
+                    <div class="food-img-bg">
+                        <img src="vegpasta.jpg">
+                        <div class="promo-badge">Buy 1<br>Get 1<br>Free</div>
+                    </div>                   
+                    <div class="menu-title">Veg Pasta</div>
+                    <div class="menu-price">
+                        <p>MUR 250</p>
+                    </div>
+                </div> 
+                <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                </div>
+            </div>
+
+        </div>
+        <br>
+        <!--Menu Ends-->
+        <!--Service Starts-->
+        <h2 id="services">Our Services</h2>
+        <hr>
+        <div class="services">
+            <div class="service-card">
+                <i class="bi bi-fork-knife"></i>
+                <h6>Quality Food</h6>
+            </div>   
+            <div class="service-card">
+                <i class="bi bi-cart-check-fill"></i>
+                <h6>Online Order</h6>
+            </div>
+            <div class="service-card">
+                <i class="bi bi-alarm-fill"></i>
+                <h6>24/7 Service</h6>
+            </div>
+            <div class="service-card">
+                <i class="bi bi-truck"></i>
+                <h6>Free Delivery</h6>
+            </div>
+        </div>
+        <br>
+        <!--Service Ends-->
+        <!--Reviews Starts-->
+        <h2 id="reviews">Client Reviews</h2>
+        <hr>
+        <div class="reviews-container">
+            <div class="reviews-card">
+                <div class="reviews-phrases">
+                    <p>“Delicious food and fast delivery! Highly recommend.”— Abraham</p>
+                </div>
+            </div>
+            <div class="reviews-card">
+                <div class="reviews-phrases">
+                    <p>“Amazing flavors and great customer service.Lip-smacking!!!”— Nayar</p>
+                </div>
+            </div>
+            <div class="reviews-card">
+                <div class="reviews-phrases">
+                    <p>“Affordable prices and top-quality meals every time.”— Nirmal</p>
+                </div>
+            </div>
+            <div class="reviews-card">
+                <div class="reviews-phrases">
+                    <p>“Love the online ordering system—so easy and convenient!”— Mark</p>
+                </div>
+            </div>
+        </div>
+        <!--Reviews Ends-->
+        <!--Form Starts-->
+        <h2 id="book">Book a Table Online</h2>
+        <hr>
+        <section class="booking-section"> 
+            <form class="booking-form">
+                <div class="form-row">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required> 
+                </div>
+                <div class="form-row">
+                    <input type="date" required>
+                    <select required>
+                        <option disabled selected>No Of People</option>
+                        <option>1 Person</option>
+                        <option>2 People</option>
+                        <option>3 People</option>
+                        <option>4 People</option>
+                    </select>
+
+                </div>
+            </form>
+        </section>
+        <br>
+        <br> <br>
+        <br>
+        <br> <br>
+
+        <!--Form Ends-->
+        <script>
+            document.getElementById('login').addEventListener('click', function() 
+            {
+                window.location.href =  "/login";
+            });
+
+            document.getElementById('register').addEventListener('click', function() 
+            {
+                window.location.href =  "/register";
+            });
+
+        </script>
+
+    </body>
+</html>

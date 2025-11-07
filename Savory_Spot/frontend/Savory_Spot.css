@@ -1,0 +1,339 @@
+/*background section*/
+.background-overlay {
+    background-image: url('backgroundimage.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    z-index: -1;
+}
+/* #region navbar */
+li {
+  display: inline-block;
+}
+li a {
+  display: block;
+  color: rgb(247, 244, 244);
+  text-align: right;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  width: 98%;
+  align-items: center;
+}
+.left-content ul,
+.right-content ul {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+
+.book-link {
+  text-decoration: underline;
+}
+}
+/* #endregion navbar */
+/* #region welcome section */
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 10px;
+  padding: 10px; 
+} 
+#home{
+  color: rgb(241, 186, 5);
+}
+.home-description {
+  font-size: 1.2rem;
+  color: #333;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px 0;
+}
+.item2 h1 {
+  color:  rgb(241, 186, 5);
+  font-family: pacifico, cursive;
+}
+.item2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 350px; 
+}
+.item1 {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;      
+  height: 350px;             
+}
+.welcome-video {
+  border: 5px solid #000000;  
+  border-radius: 20px;        
+  object-fit: cover;
+  margin-top: 80px;      
+}
+/* #endregion welcome section */
+/* #region menu section */
+.menu-items h3{
+  text-align: center;
+}
+.food-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.burger img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+  border: black solid 2px;
+}
+.burger {
+  display: flex;
+  gap: 20px; 
+  justify-content: center; 
+}
+.button {
+  display: block;
+  margin: 10px auto;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center
+}
+.food-card {
+  text-align: center; 
+   margin: 50px;
+}
+.promo-badge{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  transform: translateX(225%);
+  background: #026eeb;
+  color: #000000;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.5rem;
+}
+.food-img-bg {
+  position: relative;
+}
+.food-img-bg {
+  position: relative;
+  background-color: #f3a108;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 0 auto 10px auto;
+}
+.pizza {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+.pizza img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border: black solid 2px;
+}
+.food-img-bg img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.pasta img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border: black solid 2px;
+}
+.pasta {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+/* #endregion menu section */
+/* #region services */
+h3 {
+  font-family:'Oswald', sans-serif;
+  text-align: center;
+}
+.service-card:hover {
+  background-color: #f7f7f7;
+  cursor: pointer;
+}
+.services {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+.service-card{
+  background:  rgb(241, 186, 5);
+  padding: 30px 20px;
+  border-radius: 8px;
+}
+/* #endregion services */
+/* #region reviews */
+h2{
+  text-align: center;
+  font-family: pacifico, cursive;
+}
+.reviews-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;     
+}
+.reviews-card {
+  background: rgb(126, 226, 211);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: left;
+}
+.reviews-phrases{
+  font-style: italic;
+}
+/* #endregion reviews */
+/* #region booking section */
+.booking-section {
+  background-color: #0c0c2b; 
+  color: white;
+  max-width: 1000px;
+  margin: auto;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  row-gap: 5px;
+  column-gap: 5px;
+
+}
+.form-row {
+  display: flex;
+  
+  flex-wrap: wrap;
+}
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  flex: 1;
+  padding: 12px    15px;
+  border-radius: 5px;
+  font-size: 1rem;
+;
+}
+/* #endregion booking section*/
+/* #region media queries */
+@media (max-width: 600px) {
+  .nav-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .left-content ul,
+  .right-content ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+.burger, .pizza, .pasta {
+    flex-direction: column;
+    align-items: center;
+}
+  .food-card{
+    width: 100%;
+    max-width: 300px; 
+    margin: 10px auto;
+  } 
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+.item1, .item2 {
+    width: 100%;
+    text-align: center;
+  }
+  .welcome-video {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+  }
+  .services{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .reviews-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }  
+}
+@media (max-width: 900px) {
+  .grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+
+.nav-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .left-content ul,
+  .right-content ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+.burger, .pizza, .pasta {
+    flex-direction: column;
+    align-items: center;
+}
+  .food-card{
+    width: 100%;
+    max-width: 300px; 
+    margin: 10px auto;
+  } 
+ .item1, .item2 {
+    width: 100%;
+    text-align: center;
+  }
+  .welcome-video {
+    width: 75%;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+/* #endregion  media queries*/
