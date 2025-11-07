@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="login.css">
+    <title>Log In Form</title>
+</head>
+<body>
+    <div class="background-overlay"></div>
+        <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+            <div class="nav-content">
+                <div class="left-content">
+                    <ul>               
+                        <li><i class="bi bi-fork-knife" style="color: rgb(255, 204, 0); font-size: 2.5rem;"></i></li>
+                        <li><h4 style= "color: rgb(255, 204, 0);">Savory Spot</h4></li>                    
+                    </ul>
+                </div>  
+                
+                <div class="right-content">
+                    <ul>               
+                        <li><a href="#register"><button type="button" class="btn btn-warning" id = "register">REGISTER</button></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+     <!--User Log In Form-->
+    <div class="form-container">
+        <form action="/loggedin" method="POST">
+            <label for="UserName"><b>Username</b></label>
+            <input type="text" placeholder="Enter your Username" name ="userName" id = "user_name" required>
+            <br><br>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name ="password" id = "pass_word" required>
+            <br><br>
+
+            <input type="submit" value="Log In" id = "log_in" disabled>
+        </form>
+    </div>
+
+    <script src="/login.js"></script>
+    
+</body>
+</html>
