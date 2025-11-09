@@ -49,3 +49,7 @@ label {
     font-size: 25px; 
     font-weight: bold;
 }
+
+.required-asterisk {
+  color: red;
+}

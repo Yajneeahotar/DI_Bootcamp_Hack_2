@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
+//Accessing the database
 let knex = require('knex')
 ({
   client: 'pg',
@@ -32,33 +35,47 @@ app.get('/register', (req, res) =>
   res.sendFile(__dirname + "/frontend/register.html");
 })
 
+//when user is logging in, checks whether user exists in database
 app.post("/loggedin", (req, res) => 
 {
-  const username = req.body.userName;
+  const username = req.body.userName; //userName is from HTML - name ="userName"
   knex.select('username', 'password').from('users').where({username : username})
   .then(data =>
   {
     if(data.length == 0)
     {
-      res.status(404).send("User not found");
+      res.redirect(`/login?wrongusername=${username}`);  
     }
     else
     {
       const dbPassword = data[0].password;
       const pwd = req.body.password;
-      if(pwd == dbPassword)
+      bcrypt.compare (pwd,dbPassword, (err, result) => 
       {
-        res.sendFile(__dirname + "/frontend/index.html");
-      }
-      else
-      {
-        res.status(404).send("Password incorrect")
-      }
+        if (err) 
+        {
+          console.error('Error comparing password:', err);
+          return;
+        }
+        if (result) 
+        {
+          //res.sendFile (__dirname + "/frontend/index.html");
+          //res.redirect(__dirname + '/frontend/index.html?username=${username}')   
+        res.redirect(`/savoryspot?username=${username}`);  
+        } 
+        else 
+        {
+          //return res.status(404).send("Wrong password");
+          res.redirect(`/login?wrongpassword=${username}`);  
+        }
+      });
     }
+  });
+})
 
-  }) 
+app.get('/savoryspot', (req, res) => {
+    res.sendFile(__dirname + "/frontend/index.html");
 });
-
 app.post("/registered", (req, res) => 
 {
   const firstname = req.body.firstName;
@@ -67,32 +84,61 @@ app.post("/registered", (req, res) =>
   const username = req.body.userName;
   const pwd = req.body.password;
 
-  knex('users')
-  .insert(
-  { 
-    first_name : firstname,
-    last_name : lastname,
-    email : email,
-    username : username,
-    password : pwd
-  })           
-  .returning('*')                       
-  .then(data => 
+
+
+  
+  knex.select('username').from('users').where({username : username})
+  .then(data =>
   {
-      res.json(data);          
-  })
-  .catch(err => 
-  {
-      console.error(err);
-      res.status(500).json({ error: err.message });
+    if(data.length)
+    {
+      res.redirect(`/register?wrongusername=${username}`);  
+      //res.redirect(`/login?wrongusername=${username}`);   
+    }
   });
 
 
+
+
+
+  bcrypt.hash(req.body.password, saltRounds, (err, hash) => 
+  {
+    if (err) 
+    {
+      res.status(404).json('Encryption error')
+    }
+    else 
+    {
+      // Store the generated hash in the database
+      console.log('Hashed password:', hash);
+      knex('users')
+      .insert(
+      { 
+        first_name : firstname,
+        last_name : lastname,
+        email : email,
+        username : username,
+        password : hash
+      })           
+      .returning('*')                       
+      .then(data => 
+      {
+        res.redirect(`/savoryspot?username=${username}`);  
+         
+      })
+      .catch(err => 
+      {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+      });
+    }
+  })
 })
+
 
 
 
 app.listen(5009, () => 
 {
     console.log('Server is listening on port 5009');
-});
+})

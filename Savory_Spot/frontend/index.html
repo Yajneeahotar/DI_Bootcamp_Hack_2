@@ -257,6 +257,7 @@
 
         <!--Form Ends-->
         <script>
+            var username;
             document.getElementById('login').addEventListener('click', function() 
             {
                 window.location.href =  "/login";
@@ -267,6 +268,61 @@
                 window.location.href =  "/register";
             });
 
+            window.onload = function() 
+            {
+                //Get URL query parameters and extract the value of 'username' from the URL, if it exists
+                const urlParams = new URLSearchParams(window.location.search);
+                username = urlParams.get('username');
+                console.log(username);
+                let loginButton;
+                let registerButton;
+                let navbar;
+                let welcomeUser;
+                let logOut;
+
+                if (username) 
+                {
+                    //Remove the login + register buttons
+                    loginButton = document.getElementById('login');
+                    if (loginButton) loginButton.remove();
+                    registerButton = document.getElementById('register');
+                    if (registerButton) registerButton.remove();
+
+                    //Get the <ul> inside the navbar
+                    const ul = document.querySelector('.right-content ul');
+
+                    // Create a new <li> to welcome the loggedin user, then apped it next to navbar links
+                    welcomeUser = document.createElement('li');
+                    welcomeUser.innerText = 'Welcome ' + username;
+
+                    welcomeUser.style.color = 'rgb(241, 186, 5)';
+                    welcomeUser.style.fontWeight = 'bold';
+                    welcomeUser.style.display = 'inline-block';
+                    welcomeUser.style.marginLeft = '10px';
+
+                    ul.appendChild(welcomeUser);
+
+
+                    // Create the cart <li> + add bootstrap cart icon and append it next to the welcomeuser
+                    const cartLi = document.createElement('li');
+                    cartLi.innerHTML = `<a href="#cart" class="btn btn-outline-warning">
+                                        <i class="bi bi-cart"></i> Cart
+                                        </a>`;
+                    cartLi.style.marginLeft = '10px';
+                    ul.appendChild(cartLi);
+
+                    //Create a logout button for a logged in user
+                    logOut = document.createElement('li');
+                    logOut.innerHTML = '<a href="#logout"><button type="button" class="btn btn-warning" id = "logout">LOG OUT</button></a>'
+                    ul.appendChild(logOut);
+
+                    //redirecting client to main page after clicking on logout
+                    document.getElementById("logout").addEventListener("click", function() 
+                    {
+                        window.location.href = "/savoryspot";
+                    });         
+                }
+            }
         </script>
 
     </body>
