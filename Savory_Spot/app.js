@@ -135,6 +135,63 @@ app.post("/registered", (req, res) =>
   })
 })
 
+//creating orders
+app.get("/orders", (req, res) => 
+{
+  let price = 0;
+  let allOrders = req.query.allOrders;
+  console.log(allOrders);
+
+  if(req.query.neworder == 'chickenburger')
+  {
+    price = 150;
+  }
+  else if (req.query.neworder == 'lambburger')
+  {
+    price = 200;
+  }
+
+  
+
+
+  knex('orders')
+  .insert({
+      username: req.query.username,
+      first_name: 'Yajnee',
+      last_name: 'Ahotar',
+      menu: req.query.neworder,
+      quantity: 1,
+      price: price
+  })
+  .then(() => {
+      //res.json({ message: 'Order inserted successfully' });
+    res.redirect(`/savoryspot?username=${req.query.username}&neworder=${req.query.neworder}&allOrders=${allOrders}`); 
+  })
+  .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: 'Database insert failed' });
+  }); 
+
+})
+
+//DELETE an order
+app.get('/ordercancelled', function (request, response) 
+{
+  knex('orders')
+    .where({username : request.query.username, menu : request.query.menu})
+    .del()
+  
+    .then(data => 
+    {
+      response.redirect(`/savoryspot?username=${request.query.username}`);          
+    })
+    .catch(err => 
+    {
+      console.error(err);
+      response.status(500).json({ error: err.message });
+    });
+});
+
 
 
 

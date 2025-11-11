@@ -55,7 +55,7 @@
             <hr>
             <h3>Burger Bliss</h3>
             <div class="burger">
-                <div class="food-card">
+                <div class ="food-card"  id = "chickenburger">
                     <div class="container">
                         <div class="food-img-bg">
                             <img src="chickenburger.jpg">               
@@ -66,9 +66,9 @@
                             <p>MUR 150</p>
                         </div>
                     </div> 
-                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                    <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "chickenburger">ORDER NOW</button></li>
                 </div>
-                <div class="food-card">
+                <div class="food-card" id = "lambburger">
                     <div class="container">
                         <div class="food-img-bg">
                             <img src="lambburger.jpeg">
@@ -78,7 +78,7 @@
                             <p>MUR 200</p>
                         </div>
                     </div> 
-                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                    <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "lambburger">ORDER NOW</button></li>
                 </div>
                 <div class="food-card">
                     <div class="container">
@@ -90,7 +90,7 @@
                             <p>MUR 100</p>
                         </div>
                     </div> 
-                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                    <li><button type="button" class="btn btn-warning"id = "orderbutton" value = "vegburger">ORDER NOW</button></li>
                 </div>
             </div>
             <br>
@@ -106,7 +106,7 @@
                             <p>MUR 250</p>
                         </div>
                     </div> 
-                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                    <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "chickenpizza">ORDER NOW</button></li>
                 </div>
                 <div class="food-card">
                     <div class="container">
@@ -119,7 +119,7 @@
                             <p>MUR 300</p>
                         </div>
                     </div> 
-                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                    <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "lambpizza">ORDER NOW</button></li>
                 </div>
                 <div class="food-card">
                     <div class="container">
@@ -131,7 +131,7 @@
                             <p>MUR 150</p>
                         </div>
                     </div> 
-                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                    <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "vegpizza">ORDER NOW</button></li>
                 </div>
             </div>
             <br>
@@ -147,7 +147,7 @@
                             <p>MUR 350</p>
                         </div>
                     </div> 
-                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                    <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "chickenpasta">ORDER NOW</button></li>
                 </div>
                 <div class="food-card">
                     <div class="container">
@@ -159,7 +159,7 @@
                         <p>MUR 400</p>
                     </div>
                     </div> 
-                    <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                    <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "lambpasta">ORDER NOW</button></li>
                 </div>
                 <div class="food-card">
                 <div class="container">
@@ -172,7 +172,7 @@
                         <p>MUR 250</p>
                     </div>
                 </div> 
-                <button type="button" class="btn btn-warning">ORDER NOW</button></li>
+                <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "vegpasta">ORDER NOW</button></li>
                 </div>
             </div>
 
@@ -258,6 +258,7 @@
         <!--Form Ends-->
         <script>
             var username;
+            var allOrders = 'test';
             document.getElementById('login').addEventListener('click', function() 
             {
                 window.location.href =  "/login";
@@ -279,6 +280,7 @@
                 let navbar;
                 let welcomeUser;
                 let logOut;
+
 
                 if (username) 
                 {
@@ -323,6 +325,83 @@
                     });         
                 }
             }
+
+            
+            let orderButton = document.querySelectorAll('#orderbutton');
+            for(let i = 0; i < orderButton.length; i++)
+            {
+                orderButton[i].addEventListener("click", function()
+                {
+    
+                   
+
+                    if(allOrders == null)
+                    {
+                        allOrders = orderButton[i].value + ',';
+                    }
+                    else
+                    {
+                        allOrders += orderButton[i].value + ',';
+                    }
+                    
+                
+                    console.log("Orders are: " + allOrders)
+
+
+
+                    if(!username)
+                    {
+                       alert('Please log in or register first');
+                    }
+                    else
+                    {
+                        window.location.href = `/orders?menu=${orderButton[i].value}&username=${username}&neworder=${orderButton[i].value}&allOrders=${allOrders}`;
+                    }
+                }
+            )};
+
+
+            let menu;
+            let removeButton;
+         
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            menu = urlParams.get('neworder');
+            username = urlParams.get('username');
+            allOrders = urlParams.get('allOrders');
+            console.log(allOrders)
+
+            if (username && menu) 
+            {
+               // allOrders = urlParams.get('allOrders');
+    
+                //Remove the order now button and add a remove button
+                for(let i = 0; i < orderButton.length; i++)
+                {
+                    if(orderButton[i].value == menu)
+                    {
+                        orderButton[i].remove();
+                        break;
+                    }; 
+                }  
+                   
+                
+                let foodID = document.getElementById(menu);
+                removeButton = document.createElement('li');
+                removeButton.innerHTML = '<button type="button" class="btn btn-light" id = "cancelorder">CANCEL ORDER</button>'
+                removeButton.value = menu;
+                foodID.appendChild(removeButton);
+
+                removeButton.addEventListener("click", function()
+                {
+                    window.location.href = `/ordercancelled?menu=${menu}&username=${username}`;
+
+                })
+
+            }
+            console.log(allOrders);
+            
+            
         </script>
 
     </body>
