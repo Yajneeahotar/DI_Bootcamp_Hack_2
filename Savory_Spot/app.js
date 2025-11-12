@@ -19,6 +19,7 @@ let knex = require('knex')
 });
 
 app.use(express.static('frontend'));
+app.use(express.json());
 app.use(express.urlencoded({ exfrontendtended: true }));
 
 app.get('/savoryspot', (req, res) => 
@@ -34,6 +35,12 @@ app.get('/register', (req, res) =>
 {
   res.sendFile(__dirname + "/frontend/register.html");
 })
+
+app.get('/mycart', (req, res) => 
+{
+  res.sendFile(__dirname + "/frontend/cart.html");
+})
+
 
 //when user is logging in, checks whether user exists in database
 app.post("/loggedin", (req, res) => 
@@ -85,8 +92,6 @@ app.post("/registered", (req, res) =>
   const pwd = req.body.password;
 
 
-
-  
   knex.select('username').from('users').where({username : username})
   .then(data =>
   {
@@ -142,13 +147,37 @@ app.get("/orders", (req, res) =>
   let allOrders = req.query.allOrders;
   console.log(allOrders);
 
-  if(req.query.neworder == 'chickenburger')
+  switch(req.query.neworder)
   {
-    price = 150;
-  }
-  else if (req.query.neworder == 'lambburger')
-  {
-    price = 200;
+    case "chickenburger":
+    case "vegpizza":
+      price = 150;
+      break;
+    
+    case "lambburger":
+      price = 200;
+      break;
+
+    case "vegburger":
+      price = 100;
+      break;
+
+    case "chickenpizza":
+    case "vegpasta":
+      price = 250;
+      break;
+
+    case "lambpizza":
+      price = 300;
+      break;
+
+    case "chickenpasta":
+      price = 350;
+      break;
+
+    case "lambpasta":
+      price = 400;
+      break;
   }
 
   
@@ -189,6 +218,57 @@ app.get('/ordercancelled', function (request, response)
     {
       console.error(err);
       response.status(500).json({ error: err.message });
+    });
+});
+
+//Updating cart
+app.post('/mycartlist', function (request, response) 
+{
+
+  console.log(request.body)
+  const { menu, username, quantity } = request.body;
+
+  switch(menu)
+  {
+    case "chickenburger":
+    case "veg pizza":
+      price = 150;
+      break;
+    
+    case "lambburger":
+      price = 200;
+      break;
+
+    case "vegburger":
+      price = 100;
+      break;
+
+    case "chickenpizza":
+    case "vegpasta":
+      price = 250;
+      break;
+
+    case "lambpizza":
+      price = 300;
+      break;
+
+    case "chickenpasta":
+      price = 400;
+      break;
+  }
+
+  console.log("username is" + username)
+  knex('orders')
+    .where({ username : username, menu : menu })
+    .update
+    ({ 
+      price: price * quantity,
+      quantity: quantity
+    })
+    .catch(err => 
+    {
+        console.error(err);
+        response.status(500).json({ error: err.message });
     });
 });
 

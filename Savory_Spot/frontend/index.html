@@ -27,7 +27,7 @@
                         <li><a href="#menu">MENU</a></li>
                         <li><a href="#services">SERVICES</a></li>                              
                         <li><a href="#reviews">REVIEWS</a></li>
-                        <li><a href="#book" class="book-link">BOOK A TABLE</button></a></li>
+                        <!--li><a href="#book" class="book-link">BOOK A TABLE</button></a></li-->
                         <li><a href="#login"><button type="button" class="btn btn-warning" id = "login">LOG IN</button></a></li>
                         <li><a href="#register"><button type="button" class="btn btn-warning" id = 'register'>REGISTER</button></a></li>
                     </ul>
@@ -80,7 +80,7 @@
                     </div> 
                     <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "lambburger">ORDER NOW</button></li>
                 </div>
-                <div class="food-card">
+                <div class="food-card" id = "vegburger">
                     <div class="container">
                         <div class="food-img-bg">
                             <img src="vegburger.jpeg">
@@ -96,7 +96,7 @@
             <br>
             <h3>Pizza Corner</h3>
             <div class="pizza">
-                <div class="food-card">
+                <div class="food-card" id = "chickenpizza">
                     <div class="container">
                         <div class="food-img-bg">
                             <img src="Chickenpizza.jpg">
@@ -108,7 +108,7 @@
                     </div> 
                     <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "chickenpizza">ORDER NOW</button></li>
                 </div>
-                <div class="food-card">
+                <div class="food-card" id = "lambpizza">
                     <div class="container">
                         <div class="food-img-bg">
                             <img src="lambpizza.jpg">
@@ -121,7 +121,7 @@
                     </div> 
                     <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "lambpizza">ORDER NOW</button></li>
                 </div>
-                <div class="food-card">
+                <div class="food-card" id = "vegpizza">
                     <div class="container">
                         <div class="food-img-bg">
                             <img src="vegpizza.jpeg">
@@ -137,7 +137,7 @@
             <br>
             <h3>Cozy Pasta</h3>
             <div class="pasta">
-                <div class="food-card">
+                <div class="food-card" id = "chickenpasta">
                     <div class="container">
                         <div class="food-img-bg">
                             <img src="chickenpasta.jpg">
@@ -149,7 +149,7 @@
                     </div> 
                     <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "chickenpasta">ORDER NOW</button></li>
                 </div>
-                <div class="food-card">
+                <div class="food-card" id = "lambpasta">
                     <div class="container">
                         <div class="food-img-bg">
                             <img src="lambpasta.jpg">
@@ -161,7 +161,7 @@
                     </div> 
                     <li><button type="button" class="btn btn-warning" id = "orderbutton" value = "lambpasta">ORDER NOW</button></li>
                 </div>
-                <div class="food-card">
+                <div class="food-card" id = "vegpasta">
                 <div class="container">
                     <div class="food-img-bg">
                         <img src="vegpasta.jpg">
@@ -229,7 +229,7 @@
         </div>
         <!--Reviews Ends-->
         <!--Form Starts-->
-        <h2 id="book">Book a Table Online</h2>
+        <!--h2 id="book">Book a Table Online</h2>
         <hr>
         <section class="booking-section"> 
             <form class="booking-form">
@@ -249,7 +249,7 @@
 
                 </div>
             </form>
-        </section>
+        </section-->
         <br>
         <br> <br>
         <br>
@@ -312,6 +312,14 @@
                                         </a>`;
                     cartLi.style.marginLeft = '10px';
                     ul.appendChild(cartLi);
+
+                                        
+                    //Cart button function
+                    cartLi.addEventListener('click', function() 
+                    {
+                        window.location.href =  `/mycart?allOrders=${allOrders}&username=${username}`;
+                    });
+
 
                     //Create a logout button for a logged in user
                     logOut = document.createElement('li');
@@ -385,11 +393,13 @@
                     }; 
                 }  
                    
-                
+               console.log("the menu is :" + menu)
                 let foodID = document.getElementById(menu);
+                 console.log("FoodID is: " + foodID)
                 removeButton = document.createElement('li');
                 removeButton.innerHTML = '<button type="button" class="btn btn-light" id = "cancelorder">CANCEL ORDER</button>'
                 removeButton.value = menu;
+                console.log("remove button is " + removeButton)
                 foodID.appendChild(removeButton);
 
                 removeButton.addEventListener("click", function()
@@ -397,10 +407,10 @@
                     window.location.href = `/ordercancelled?menu=${menu}&username=${username}`;
 
                 })
-
             }
             console.log(allOrders);
-            
+      
+
             
         </script>
 

@@ -1,0 +1,54 @@
+.food-details {
+  display: flex;              /* Makes image and description side by side */
+  align-items: center;        /* Vertically center content */
+  gap: 20px;                  /* Space between image and text */
+  border: 1px solid #ddd;     /* Optional styling */
+  padding: 15px;
+  max-width: 900px;           /* Optional width */
+  margin: 20px auto;
+}
+
+.food-image img {
+  width: 150px;               /* Adjust image size */
+  height: auto;
+  border-radius: 8px;         /* Rounded corners */
+}
+
+.food-description {
+  flex: 1;                    /* Takes up remaining space */
+}
+
+.quantity-selector {
+  margin-top: 10px;
+}
+
+.quantity-selector button {
+  padding: 5px 10px;
+}
+
+.quantity-selector input {
+  width: 50px;
+  text-align: center;
+}
+
+
+
+.left-content ul{
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  width: 98%;
+  align-items: center;
+}
+
+body{
+    background-color: rgb(214, 214, 162);
+}
