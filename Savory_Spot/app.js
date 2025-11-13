@@ -1,9 +1,10 @@
+// Importing required modules
 const express = require("express");
 const app = express();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-//Accessing the database
+// Connecting to PostgreSQL database using Knex
 let knex = require('knex')
 ({
   client: 'pg',
@@ -18,44 +19,53 @@ let knex = require('knex')
   }
 });
 
+// Middleware to serve static frontend files and parse requests
 app.use(express.static('frontend'));
 app.use(express.json());
 app.use(express.urlencoded({ exfrontendtended: true }));
 
+// Route to serve homepage
 app.get('/savoryspot', (req, res) => 
 {
   res.sendFile(__dirname + "/frontend/index.html");
 })
 
+// Route to serve login page
 app.get('/login', (req, res) => {
   res.sendFile(__dirname + "/frontend/login.html");
 })
 
+// Route to serve registration page
 app.get('/register', (req, res) => 
 {
   res.sendFile(__dirname + "/frontend/register.html");
 })
 
+// Route to serve user's cart page
 app.get('/mycart', (req, res) => 
 {
   res.sendFile(__dirname + "/frontend/cart.html");
 })
 
+//-----LOGIN FORM-----//
 
-//when user is logging in, checks whether user exists in database
+// Handle login form submission
 app.post("/loggedin", (req, res) => 
 {
   const username = req.body.userName; //userName is from HTML - name ="userName"
+
+  // Check if username exists in 'users' table
   knex.select('username', 'password').from('users').where({username : username})
   .then(data =>
   {
-    if(data.length == 0)
+    if(data.length == 0)     // No such username found — redirect back with error
     {
       res.redirect(`/login?wrongusername=${username}`);  
     }
     else
     {
-      const dbPassword = data[0].password;
+      // Compare submitted password with stored hashed password
+      const dbPassword = data[0].password; 
       const pwd = req.body.password;
       bcrypt.compare (pwd,dbPassword, (err, result) => 
       {
@@ -65,15 +75,12 @@ app.post("/loggedin", (req, res) =>
           return;
         }
         if (result) 
-        {
-          //res.sendFile (__dirname + "/frontend/index.html");
-          //res.redirect(__dirname + '/frontend/index.html?username=${username}')   
-        res.redirect(`/savoryspot?username=${username}`);  
+        {  
+        res.redirect(`/savoryspot?username=${username}`);    // Password matches — redirect to main page
         } 
         else 
         {
-          //return res.status(404).send("Wrong password");
-          res.redirect(`/login?wrongpassword=${username}`);  
+          res.redirect(`/login?wrongpassword=${username}`);  // Wrong password — redirect back with error
         }
       });
     }
@@ -83,8 +90,11 @@ app.post("/loggedin", (req, res) =>
 app.get('/savoryspot', (req, res) => {
     res.sendFile(__dirname + "/frontend/index.html");
 });
+
+//-----REGISTRATION FORM-----//
 app.post("/registered", (req, res) => 
 {
+  // Extract form data
   const firstname = req.body.firstName;
   const lastname = req.body.lastName;
   const email = req.body.email;
@@ -92,20 +102,18 @@ app.post("/registered", (req, res) =>
   const pwd = req.body.password;
 
 
+  // Check if username already exists
   knex.select('username').from('users').where({username : username})
   .then(data =>
   {
     if(data.length)
     {
+      // If username exists, redirect to registration page with warning
       res.redirect(`/register?wrongusername=${username}`);  
-      //res.redirect(`/login?wrongusername=${username}`);   
     }
   });
 
-
-
-
-
+// Encrypt password before saving
   bcrypt.hash(req.body.password, saltRounds, (err, hash) => 
   {
     if (err) 
@@ -114,8 +122,7 @@ app.post("/registered", (req, res) =>
     }
     else 
     {
-      // Store the generated hash in the database
-      console.log('Hashed password:', hash);
+      // Insert new user record into 'users' table
       knex('users')
       .insert(
       { 
@@ -140,13 +147,15 @@ app.post("/registered", (req, res) =>
   })
 })
 
-//creating orders
+//-----CREATING ORDERS-----//
+
+// When user adds an item to cart
 app.get("/orders", (req, res) => 
 {
   let price = 0;
   let allOrders = req.query.allOrders;
-  console.log(allOrders);
 
+  // Determine price based on menu item
   switch(req.query.neworder)
   {
     case "chickenburger":
@@ -180,9 +189,7 @@ app.get("/orders", (req, res) =>
       break;
   }
 
-  
-
-
+  // Insert order into database
   knex('orders')
   .insert({
       username: req.query.username,
@@ -193,7 +200,6 @@ app.get("/orders", (req, res) =>
       price: price
   })
   .then(() => {
-      //res.json({ message: 'Order inserted successfully' });
     res.redirect(`/savoryspot?username=${req.query.username}&neworder=${req.query.neworder}&allOrders=${allOrders}`); 
   })
   .catch(err => {
@@ -203,9 +209,12 @@ app.get("/orders", (req, res) =>
 
 })
 
-//DELETE an order
+//-----DELETING AN ORDER-----//
+
+// Delete (cancel) an order
 app.get('/ordercancelled', function (request, response) 
 {
+  console.log(request.query.menu)
   knex('orders')
     .where({username : request.query.username, menu : request.query.menu})
     .del()
@@ -221,13 +230,15 @@ app.get('/ordercancelled', function (request, response)
     });
 });
 
-//Updating cart
+//-----CART UPDATE-----//
+
+// Update cart item quantity and price
 app.post('/mycartlist', function (request, response) 
 {
 
   console.log(request.body)
   const { menu, username, quantity } = request.body;
-
+  // Determine updated price based on menu item
   switch(menu)
   {
     case "chickenburger":
@@ -257,7 +268,7 @@ app.post('/mycartlist', function (request, response)
       break;
   }
 
-  console.log("username is" + username)
+  // Update database with new quantity and total price 
   knex('orders')
     .where({ username : username, menu : menu })
     .update
@@ -272,9 +283,7 @@ app.post('/mycartlist', function (request, response)
     });
 });
 
-
-
-
+//------START SERVER-----//
 app.listen(5009, () => 
 {
     console.log('Server is listening on port 5009');

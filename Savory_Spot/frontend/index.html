@@ -227,192 +227,149 @@
                 </div>
             </div>
         </div>
-        <!--Reviews Ends-->
-        <!--Form Starts-->
-        <!--h2 id="book">Book a Table Online</h2>
-        <hr>
-        <section class="booking-section"> 
-            <form class="booking-form">
-                <div class="form-row">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required> 
-                </div>
-                <div class="form-row">
-                    <input type="date" required>
-                    <select required>
-                        <option disabled selected>No Of People</option>
-                        <option>1 Person</option>
-                        <option>2 People</option>
-                        <option>3 People</option>
-                        <option>4 People</option>
-                    </select>
+       
+    <script>
+        var username;
+        var allOrders = 'test';
 
-                </div>
-            </form>
-        </section-->
-        <br>
-        <br> <br>
-        <br>
-        <br> <br>
+        //event listeners for login and register button from home page
+        document.getElementById('login').addEventListener('click', function() 
+        {
+            window.location.href =  "/login";
+        });
+        document.getElementById('register').addEventListener('click', function() 
+        {
+            window.location.href =  "/register";
+        });
 
-        <!--Form Ends-->
-        <script>
-            var username;
-            var allOrders = 'test';
-            document.getElementById('login').addEventListener('click', function() 
+        window.onload = function() 
+        {
+            //Get URL query parameters and extract the value of 'username' from the URL, if it exists
+            const urlParams = new URLSearchParams(window.location.search);
+            username = urlParams.get('username');
+            console.log(username);
+            let loginButton;
+            let registerButton;
+            let navbar;
+            let welcomeUser;
+            let logOut;
+
+
+            if (username) 
             {
-                window.location.href =  "/login";
-            });
+                //Remove the login + register buttons
+                loginButton = document.getElementById('login');
+                if (loginButton) loginButton.remove();
+                registerButton = document.getElementById('register');
+                if (registerButton) registerButton.remove();
 
-            document.getElementById('register').addEventListener('click', function() 
-            {
-                window.location.href =  "/register";
-            });
+                //Get the <ul> inside the navbar
+                const ul = document.querySelector('.right-content ul');
 
-            window.onload = function() 
-            {
-                //Get URL query parameters and extract the value of 'username' from the URL, if it exists
-                const urlParams = new URLSearchParams(window.location.search);
-                username = urlParams.get('username');
-                console.log(username);
-                let loginButton;
-                let registerButton;
-                let navbar;
-                let welcomeUser;
-                let logOut;
+                // Create a new <li> to welcome the loggedin user, then apped it next to navbar links
+                welcomeUser = document.createElement('li');
+                welcomeUser.innerText = 'Welcome ' + username;
 
+                welcomeUser.style.color = 'rgb(241, 186, 5)';
+                welcomeUser.style.fontWeight = 'bold';
+                welcomeUser.style.display = 'inline-block';
+                welcomeUser.style.marginLeft = '10px';
 
-                if (username) 
+                ul.appendChild(welcomeUser);
+
+                // Create the cart <li> + add bootstrap cart icon and append it next to the welcomeuser
+                const cartLi = document.createElement('li');
+                cartLi.innerHTML = `<a href="#cart" class="btn btn-outline-warning"> <i class="bi bi-cart"></i> Cart</a>`;
+                cartLi.style.marginLeft = '10px';
+                ul.appendChild(cartLi);
+
+                //Cart button function
+                cartLi.addEventListener('click', function() 
                 {
-                    //Remove the login + register buttons
-                    loginButton = document.getElementById('login');
-                    if (loginButton) loginButton.remove();
-                    registerButton = document.getElementById('register');
-                    if (registerButton) registerButton.remove();
+                    window.location.href =  `/mycart?allOrders=${allOrders}&username=${username}`;
+                });
 
-                    //Get the <ul> inside the navbar
-                    const ul = document.querySelector('.right-content ul');
+                //Create a logout button for a logged in user
+                logOut = document.createElement('li');
+                logOut.innerHTML = '<a href="#logout"><button type="button" class="btn btn-warning" id = "logout">LOG OUT</button></a>'
+                ul.appendChild(logOut);
 
-                    // Create a new <li> to welcome the loggedin user, then apped it next to navbar links
-                    welcomeUser = document.createElement('li');
-                    welcomeUser.innerText = 'Welcome ' + username;
+                //redirecting client to main page after clicking on logout
+                document.getElementById("logout").addEventListener("click", function() 
+                {
+                    window.location.href = "/savoryspot";
+                });         
+            }
+        }
 
-                    welcomeUser.style.color = 'rgb(241, 186, 5)';
-                    welcomeUser.style.fontWeight = 'bold';
-                    welcomeUser.style.display = 'inline-block';
-                    welcomeUser.style.marginLeft = '10px';
-
-                    ul.appendChild(welcomeUser);
-
-
-                    // Create the cart <li> + add bootstrap cart icon and append it next to the welcomeuser
-                    const cartLi = document.createElement('li');
-                    cartLi.innerHTML = `<a href="#cart" class="btn btn-outline-warning">
-                                        <i class="bi bi-cart"></i> Cart
-                                        </a>`;
-                    cartLi.style.marginLeft = '10px';
-                    ul.appendChild(cartLi);
-
-                                        
-                    //Cart button function
-                    cartLi.addEventListener('click', function() 
-                    {
-                        window.location.href =  `/mycart?allOrders=${allOrders}&username=${username}`;
-                    });
-
-
-                    //Create a logout button for a logged in user
-                    logOut = document.createElement('li');
-                    logOut.innerHTML = '<a href="#logout"><button type="button" class="btn btn-warning" id = "logout">LOG OUT</button></a>'
-                    ul.appendChild(logOut);
-
-                    //redirecting client to main page after clicking on logout
-                    document.getElementById("logout").addEventListener("click", function() 
-                    {
-                        window.location.href = "/savoryspot";
-                    });         
+        //to obtain the orders of the loggedin user
+        let orderButton = document.querySelectorAll('#orderbutton');
+        for(let i = 0; i < orderButton.length; i++)
+        {
+            orderButton[i].addEventListener("click", function()
+            {
+                if(allOrders == null)
+                {
+                    allOrders = orderButton[i].value + ',';
+                }
+                else
+                {
+                    allOrders += orderButton[i].value + ',';
+                }
+                if(!username)
+                {
+                    alert('Please log in or register first');
+                }
+                else
+                {
+                    window.location.href = `/orders?menu=${orderButton[i].value}&username=${username}&neworder=${orderButton[i].value}&allOrders=${allOrders}`;
                 }
             }
+        )};
+        
+        let menu;
+        let removeButton;
+        
+        //getting parameters from url - changing button from 'ORDER NOW' to 'CANCEL ORDER' upon click
+        const urlParams = new URLSearchParams(window.location.search);
+        menu = urlParams.get('neworder');
+        username = urlParams.get('username');
+        allOrders = urlParams.get('allOrders');
+        console.log(allOrders)
 
-            
-            let orderButton = document.querySelectorAll('#orderbutton');
-            for(let i = 0; i < orderButton.length; i++)
+        if (username && allOrders) 
+        { 
+            let orderedMenusArr = allOrders.split(",");
+
+            for (let i = 0; i < orderedMenusArr.length; i++)
             {
-                orderButton[i].addEventListener("click", function()
-                {
-    
-                   
-
-                    if(allOrders == null)
-                    {
-                        allOrders = orderButton[i].value + ',';
-                    }
-                    else
-                    {
-                        allOrders += orderButton[i].value + ',';
-                    }
-                    
-                
-                    console.log("Orders are: " + allOrders)
-
-
-
-                    if(!username)
-                    {
-                       alert('Please log in or register first');
-                    }
-                    else
-                    {
-                        window.location.href = `/orders?menu=${orderButton[i].value}&username=${username}&neworder=${orderButton[i].value}&allOrders=${allOrders}`;
-                    }
-                }
-            )};
-
-
-            let menu;
-            let removeButton;
-         
-            
-            const urlParams = new URLSearchParams(window.location.search);
-            menu = urlParams.get('neworder');
-            username = urlParams.get('username');
-            allOrders = urlParams.get('allOrders');
-            console.log(allOrders)
-
-            if (username && menu) 
-            {
-               // allOrders = urlParams.get('allOrders');
-    
+                menu = orderedMenusArr[i];
                 //Remove the order now button and add a remove button
                 for(let i = 0; i < orderButton.length; i++)
                 {
                     if(orderButton[i].value == menu)
                     {
                         orderButton[i].remove();
-                        break;
+
+                        console.log("the menu is :" + menu)
+                        let foodID = document.getElementById(menu);
+                        console.log("FoodID is: " + foodID)
+                        removeButton = document.createElement('li');
+                        removeButton.innerHTML = '<button type="button" class="btn btn-light" id = "cancelorder">CANCEL ORDER</button>'
+                        removeButton.value = menu;
+                        console.log("remove button is " + removeButton.value)
+                        foodID.appendChild(removeButton);
+
+                        removeButton.addEventListener("click", function()
+                        {
+                            console.log("cancelled order" + menu)
+                            window.location.href = `/ordercancelled?menu=${removeButton.value}&username=${username}`;
+                        })
+                                break;
                     }; 
                 }  
-                   
-               console.log("the menu is :" + menu)
-                let foodID = document.getElementById(menu);
-                 console.log("FoodID is: " + foodID)
-                removeButton = document.createElement('li');
-                removeButton.innerHTML = '<button type="button" class="btn btn-light" id = "cancelorder">CANCEL ORDER</button>'
-                removeButton.value = menu;
-                console.log("remove button is " + removeButton)
-                foodID.appendChild(removeButton);
-
-                removeButton.addEventListener("click", function()
-                {
-                    window.location.href = `/ordercancelled?menu=${menu}&username=${username}`;
-
-                })
             }
-            console.log(allOrders);
-      
-
-            
-        </script>
-
+        }
+    </script>
     </body>
 </html>
