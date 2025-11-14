@@ -344,7 +344,6 @@
             for (let i = 0; i < orderedMenusArr.length; i++)
             {
                 menu = orderedMenusArr[i];
-                //Remove the order now button and add a remove button
                 for(let i = 0; i < orderButton.length; i++)
                 {
                     if(orderButton[i].value == menu)
@@ -355,15 +354,15 @@
                         let foodID = document.getElementById(menu);
                         console.log("FoodID is: " + foodID)
                         removeButton = document.createElement('li');
-                        removeButton.innerHTML = '<button type="button" class="btn btn-light" id = "cancelorder">CANCEL ORDER</button>'
-                        removeButton.value = menu;
+                        removeButton.innerHTML = `<button type="button" class="btn btn-light" id="cancelorder" value="${menu}">CANCEL ORDER</button>`;
+                        removeButton.dataset.id = menu;
                         console.log("remove button is " + removeButton.value)
                         foodID.appendChild(removeButton);
 
                         removeButton.addEventListener("click", function()
                         {
                             console.log("cancelled order" + menu)
-                            window.location.href = `/ordercancelled?menu=${removeButton.value}&username=${username}`;
+                            window.location.href = `/ordercancelled?menu=${removeButton.dataset.id}&username=${username}`;
                         })
                                 break;
                     }; 

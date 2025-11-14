@@ -193,8 +193,8 @@ app.get("/orders", (req, res) =>
   knex('orders')
   .insert({
       username: req.query.username,
-      first_name: 'Yajnee',
-      last_name: 'Ahotar',
+      //first_name: 'Yajnee',
+      //last_name: 'Ahotar',
       menu: req.query.neworder,
       quantity: 1,
       price: price
